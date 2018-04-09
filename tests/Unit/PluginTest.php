@@ -41,15 +41,16 @@ class PluginTest extends TestCase {
 	}
 
 	/**
-	 * Test that method that calls load_plugin_textdomain is hooked in to to the correct hook.
+	 * Test that methods are hooked in to to the correct hooks.
 	 */
-	public function test_load_plugin_textdomain_method_is_hooked_in_correctly() {
+	public function test_methods_are_hooked_in_correctly() {
 		// Create an instance of the class under test.
 		$plugin = new Testee();
 		$plugin->register();
 
-		// Check the plugin method that loads the text domain is hooked into the right filter.
+		// Check the plugin methods are hooked into the right filters.
 		static::assertNotFalse( has_action( 'plugins_loaded', [ $plugin, $this->load_textdomain_callback ] ), 'Loading textdomain is not hooked in correctly.' );
+		static::assertEquals( 1, has_action( 'wp_enqueue_scripts', 'Gamajo\GenesisJsNoJs\Plugin->script()' ), 'Script is not hooked in.' );
 	}
 
 	/**
