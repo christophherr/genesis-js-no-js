@@ -27,7 +27,6 @@ class FrontEnd {
 	 */
 	public function register() {
 		\add_filter( 'body_class', [ $this, 'body_class' ] );
-		\add_action( 'genesis_before', [ $this, 'script' ], 1 );
 	}
 
 	/**
@@ -42,24 +41,5 @@ class FrontEnd {
 		$classes[] = 'no-js';
 
 		return $classes;
-	}
-
-	/**
-	 * Echo out the script that changes 'no-js' class to 'js'.
-	 *
-	 * @since 1.0.0
-	 */
-	public function script() {
-		?>
-<script>
-//<![CDATA[
-(function(){
-var c = document.body.classList;
-c.remove( 'no-js' );
-c.add( 'js' );
-})();
-//]]>
-</script>
-<?php
 	}
 }

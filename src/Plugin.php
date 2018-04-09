@@ -27,6 +27,7 @@ class Plugin {
 	 */
 	public function register() {
 		\add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
+		\add_action( 'wp_enqueue_scripts', [ $this, 'script' ] );
 	}
 
 	/**
@@ -39,5 +40,20 @@ class Plugin {
 		$languages_dir = 'languages';
 
 		\load_plugin_textdomain( $text_domain, false, $text_domain . '/' . $languages_dir );
+	}
+
+	/**
+	 * Enqueue the script.
+	 *
+	 * @since 1.0.0
+	 */
+	public function script() {
+		\wp_enqueue_script(
+			'genesisJsNoJs',
+			dirname( plugin_dir_url( __FILE__ ) ) . '/assets/js/genesis-js-no-js.js',
+			[ 'jquery' ],
+			'3.2.2',
+			false
+		);
 	}
 }
