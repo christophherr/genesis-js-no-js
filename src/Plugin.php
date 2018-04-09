@@ -27,7 +27,7 @@ class Plugin {
 	 */
 	public function register() {
 		\add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
-		\add_action( 'wp_enqueue_scripts', [ $this, 'script' ] );
+		\add_action( 'wp_enqueue_scripts', [ $this, 'script' ], 11 );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Plugin {
 		\wp_enqueue_script(
 			'genesisJsNoJs',
 			dirname( plugin_dir_url( __FILE__ ) ) . '/assets/js/genesis-js-no-js.js',
-			[ 'jquery' ],
+			[],
 			'3.2.2',
 			false
 		);

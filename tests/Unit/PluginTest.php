@@ -65,4 +65,21 @@ class PluginTest extends TestCase {
 		$plugin = new Testee();
 		$plugin->{$this->load_textdomain_callback}();
 	}
+
+	/**
+	 * Test that wp_enqueue_script() is called with the correct configurable arguments.
+	 */
+	public function test_wp_enqueue_script_called_with_correct_args() {
+		Functions\expect( 'plugin_dir_url' )
+		->twice()
+		->andReturn( '' );
+
+		Functions\expect( 'wp_enqueue_script' )
+		->once()
+		->with( 'genesisJsNoJs', dirname( plugin_dir_url( __FILE__ ) ) . '/assets/js/genesis-js-no-js.js', [], '3.2.2', false );
+
+		// Create an instance of the class under test.
+		$plugin = new Testee();
+		$plugin->script();
+	}
 }
